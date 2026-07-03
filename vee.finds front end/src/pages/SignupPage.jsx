@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import { getAssetUrl } from '../utils/assets'
 import './SignupPage.css'
 
 export default function SignupPage() {
@@ -27,7 +28,7 @@ export default function SignupPage() {
     <div className="signup-wrapper">
       <section className="form-card">
         <div className="form-card-badge">
-          <img src="/logo.jpeg" alt="VeeFinds" />
+          <img src={getAssetUrl('logo.jpeg')} alt="VeeFinds" />
         </div>
 
         <h1 className="page-title">Create your account</h1>

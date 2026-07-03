@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import { getAssetUrl } from '../utils/assets'
 import './HomePage.css'
 
 export default function HomePage() {
@@ -50,7 +51,7 @@ export default function HomePage() {
 
         <div className="hero-visual">
           <div className="hero-image-frame">
-            <img src="/hero-bag.jpg" alt="Model carrying a VeeFinds bag" />
+            <img src={getAssetUrl('hero-bag.jpg')} alt="Model carrying a VeeFinds bag" />
             <div className="floating-badge badge-top">
               <span className="badge-icon">🔥</span>
               <div>

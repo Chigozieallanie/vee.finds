@@ -28,77 +28,77 @@ const initialProducts = [
     title: 'Denim shoulder bag',
     price: 55000,
     description: 'Denim bag with a simple, casual look\nStrong, easy to carry and perfect for everyday use.',
-    image: '/denmi.png',
+    image: `${import.meta.env.BASE_URL}denmi.png`,
   },
   {
     id: 'accessory-01',
     title: 'Leopard print bag',
     price: 60000,
     description: 'Leopard print bag with a chic, standout design\nEasy to style and perfect for adding a touch of confidence to any look.',
-    image: '/leopard print bag.jpeg',
+    image: `${import.meta.env.BASE_URL}leopard print bag.jpeg`,
   },
   {
     id: 'accessory-02',
     title: 'Pink y2k shoulder bag',
     price: 45000,
     description: 'Pink Y2K shoulder bag with a trendy, cute vibe\nLightweight, easy to carry and perfect for everyday or going-out looks.',
-    image: '/pinky y2.png',
+    image: `${import.meta.env.BASE_URL}pinky y2.png`,
   },
   {
     id: 'bag-01',
     title: 'Light Denim Blue Mini Chelsea Shoulder Bag',
     price: 59000,
     description: 'Handcrafted with premium materials and stylish details.',
-    image: '/Light Denim Blue Mini Chelsea Shoulder Bag.png',
+    image: `${import.meta.env.BASE_URL}Light Denim Blue Mini Chelsea Shoulder Bag.png`,
   },
   {
     id: 'bag-02',
     title: 'Polo ID Denim Mini Shoulder Bag',
     price: 44000,
     description: 'Lightweight, secure, and perfect for every journey.',
-    image: '/Polo ID Denim Mini Shoulder Bag.png',
+    image: `${import.meta.env.BASE_URL}Polo ID Denim Mini Shoulder Bag.png`,
   },
   {
     id: 'bag-03',
     title: 'Tabby Shoulder Bag',
     price: 69000,
     description: 'Roomy interior with smart compartments for all essentials.',
-    image: '/Tabby Shoulder Bag.png',
+    image: `${import.meta.env.BASE_URL}Tabby Shoulder Bag.png`,
   },
   {
     id: 'bag-01',
     title: 'Teri Shoulder Bag',
     price: 59000,
     description: 'Handcrafted with premium materials and stylish details.',
-    image: '/Teri Shoulder Bag.png',
+    image: `${import.meta.env.BASE_URL}Teri Shoulder Bag.png`,
   },
   {
     id: 'bag-02',
     title: 'Womenz Charm-D Shoulder Bag',
     price: 44000,
     description: 'Lightweight, secure, and perfect for every journey.',
-    image: '/Womenz Charm-D-Shoulder bag.jpg',
+    image: `${import.meta.env.BASE_URL}Womenz Charm-D-Shoulder bag.jpg`,
   },
   {
     id: 'bag-03',
     title: 'Womenz Charm-D Shoulder M Shoulder Bag',
     price: 69000,
     description: 'Roomy interior with smart compartments for all essentials.',
-    image: '/Womenz Charm-D Shoulder M Shoulder Bag.png',
+    image: `${import.meta.env.BASE_URL}Womenz Charm-D Shoulder M Shoulder Bag.png`,
   },
   {
     id: 'bag-01',
     title: 'Zebra Print Baguette Bag',
     price: 59000,
     description: 'Handcrafted with premium materials and stylish details.',
-    image: '/Zebra Print Baguette Bag.jpg',
+    image: `${import.meta.env.BASE_URL}Zebra Print Baguette Bag.jpg`,
   },
   {
     id: 'bag-02',
     title: 'Zebra Print Tapestry Tote Bag',
     price: 44000,
     description: 'Lightweight, secure, and perfect for every journey.',
-    image: '/Zebra Print Tapestry Tote Bag.jpg',
+    image: `${import.meta.env.BASE_URL}Zebra Print Tapestry Tote Bag.jpg`,
   },
   {
     id: 'bag-03',
@@ -233,7 +233,7 @@ export default function ProductsPage() {
         {initialProducts.map((product) => (
           <article key={product.id} className="product-card">
             <div className="product-image">
-              <img src={encodeURI(product.image)} alt={product.title} className="product-img" />
+              <img src={product.image} alt={product.title} className="product-img" />
             </div>
             <div>
               <h3>{product.title}</h3>

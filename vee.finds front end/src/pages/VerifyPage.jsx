@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import { getAssetUrl } from '../utils/assets'
 import './VerifyPage.css'
 
 export default function VerifyPage() {
@@ -31,7 +32,7 @@ export default function VerifyPage() {
     <div className="verify-wrapper">
       <section className="form-card">
         <div className="form-card-badge">
-          <img src="/logo.jpeg" alt="VeeFinds" />
+          <img src={getAssetUrl('logo.jpeg')} alt="VeeFinds" />
         </div>
 
         <h1 className="page-title">Activate your account</h1>

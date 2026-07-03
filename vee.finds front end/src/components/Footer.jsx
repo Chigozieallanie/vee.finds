@@ -1,4 +1,5 @@
 import './Footer.css'
+import { getAssetUrl } from '../utils/assets'
 
 const SOCIAL_LINKS = [
   {
@@ -39,7 +40,7 @@ export default function Footer() {
     <footer className="site-footer">
       <div className="footer-inner">
         <div className="footer-brand">
-          <img src="/logo.jpeg" alt="VeeFinds" className="footer-logo" />
+          <img src={getAssetUrl('logo.jpeg')} alt="VeeFinds" className="footer-logo" />
           <span>Vee Finds</span>
         </div>
 

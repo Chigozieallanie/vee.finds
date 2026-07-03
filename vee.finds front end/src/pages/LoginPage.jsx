@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useLocation, useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { useSettings } from '../contexts/SettingsContext'
+import { getAssetUrl } from '../utils/assets'
 import './LoginPage.css'
 
 export default function LoginPage() {
@@ -34,7 +35,7 @@ export default function LoginPage() {
     <div className="login-wrapper">
       <section className="form-card">
         <div className="form-card-badge">
-          <img src="/logo.jpeg" alt="VeeFinds" />
+          <img src={getAssetUrl('logo.jpeg')} alt="VeeFinds" />
         </div>
 
         <h1 className="page-title">Welcome back</h1>
