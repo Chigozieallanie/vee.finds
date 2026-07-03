@@ -10,8 +10,10 @@ import ProductsPage from './pages/ProductsPage'
 import CartPage from './pages/CartPage'
 import ContactPage from './pages/ContactPage'
 import CommunicationsPage from './pages/CommunicationsPage'
+import AdminInboxPage from './pages/AdminInboxPage'
 import NotFoundPage from './pages/NotFoundPage'
 import ProtectedRoute from './components/ProtectedRoute'
+import OwnerRoute from './components/OwnerRoute'
 
 function App() {
   return (
@@ -46,6 +48,14 @@ function App() {
               <ProtectedRoute>
                 <CommunicationsPage />
               </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/inbox"
+            element={
+              <OwnerRoute>
+                <AdminInboxPage />
+              </OwnerRoute>
             }
           />
           <Route path="/404" element={<NotFoundPage />} />

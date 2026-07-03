@@ -155,6 +155,38 @@
   background: var(--surface-strong);
 }
 
+.admin-inbox-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+}
+
+.inbox-list {
+  display: grid;
+  gap: 16px;
+}
+
+.thread-list {
+  display: grid;
+  gap: 10px;
+}
+
+.inbox-detail {
+  display: grid;
+  gap: 18px;
+}
+
+.button.active-thread {
+  background: var(--surface-strong);
+  border-color: var(--primary);
+}
+
+@media (max-width: 900px) {
+  .admin-inbox-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .message-meta {
   display: flex;
   justify-content: space-between;

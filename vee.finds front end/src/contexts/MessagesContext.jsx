@@ -20,6 +20,7 @@ export function MessagesProvider({ children }) {
   const sendMessage = (payload) => {
     const nextMessage = {
       id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      sender: payload.sender || 'Customer',
       ...payload,
       createdAt: new Date().toISOString(),
     }
@@ -29,8 +30,26 @@ export function MessagesProvider({ children }) {
   const getMessagesForUser = (email) =>
     messages.filter((message) => message.email?.toLowerCase() === email?.toLowerCase())
 
+  const getThreads = () => {
+    const threads = messages.reduce((acc, message) => {
+      const email = message.email?.toLowerCase() || 'unknown'
+      if (!acc[email]) {
+        acc[email] = { email, count: 0, lastMessageAt: message.createdAt }
+      }
+      acc[email].count += 1
+      if (message.createdAt > acc[email].lastMessageAt) {
+        acc[email].lastMessageAt = message.createdAt
+      }
+      return acc
+    }, {})
+
+    return Object.values(threads).sort(
+      (a, b) => new Date(b.lastMessageAt) - new Date(a.lastMessageAt),
+    )
+  }
+
   const value = useMemo(
-    () => ({ messages, sendMessage, getMessagesForUser }),
+    () => ({ messages, sendMessage, getMessagesForUser, getThreads }),
     [messages],
   )
 

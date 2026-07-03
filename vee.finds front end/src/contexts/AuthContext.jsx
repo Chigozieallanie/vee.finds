@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { useSettings } from './SettingsContext'
 
 const AuthContext = createContext(null)
 
@@ -13,21 +14,20 @@ export function AuthProvider({ children }) {
     const saved = window.localStorage.getItem('vee-auth')
     return saved ? JSON.parse(saved) : initialUser
   })
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const { ownerEmail } = useSettings()
+  const isAuthenticated = Boolean(user.email && user.isVerified)
+  const isOwner = isAuthenticated && user.email?.toLowerCase() === ownerEmail?.toLowerCase()
   const [notification, setNotification] = useState('')
 
   useEffect(() => {
     window.localStorage.setItem('vee-auth', JSON.stringify(user))
   }, [user])
 
-  useEffect(() => {
-    setIsAuthenticated(Boolean(user.email && user.isVerified))
-  }, [user])
-
   const value = useMemo(
     () => ({
       user,
       isAuthenticated,
+      isOwner,
       notification,
       setNotification,
       registerUser: (payload) => {
@@ -51,7 +51,6 @@ export function AuthProvider({ children }) {
       },
       logout: () => {
         setUser(initialUser)
-        setIsAuthenticated(false)
         setNotification('You are logged out.')
       },
     }),

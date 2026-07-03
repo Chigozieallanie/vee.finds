@@ -1,9 +1,10 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { useCart } from '../contexts/CartContext'
+import { ADMIN_INBOX_ROUTE } from '../config.js'
 
 export default function Header() {
-  const { isAuthenticated, user, logout } = useAuth()
+  const { isAuthenticated, isOwner, user, logout } = useAuth()
   const { items } = useCart()
   const navigate = useNavigate()
 
@@ -17,6 +18,7 @@ export default function Header() {
         <NavLink to="/products">Products</NavLink>
         <NavLink to="/contact">Contact</NavLink>
         {isAuthenticated && <NavLink to="/communications">Communications</NavLink>}
+        {isOwner && <NavLink to={ADMIN_INBOX_ROUTE}>Inbox</NavLink>}
       </nav>
       <div className="header-actions">
         {isAuthenticated ? (

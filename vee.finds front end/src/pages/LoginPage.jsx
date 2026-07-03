@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useLocation, useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import { useSettings } from '../contexts/SettingsContext'
 import './LoginPage.css'
 
 export default function LoginPage() {
@@ -8,6 +9,7 @@ export default function LoginPage() {
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const { login, notification, user } = useAuth()
+  const { ownerEmail } = useSettings()
   const navigate = useNavigate()
   const location = useLocation()
   const from = location.state?.from?.pathname || '/products'
@@ -74,6 +76,9 @@ export default function LoginPage() {
 
         <p className="form-footer">
           New to VeeFinds? <Link to="/signup" className="form-link">Create an account</Link>
+        </p>
+        <p className="footer-note small-note">
+          Owner access is granted only to <strong>{OWNER_EMAIL}</strong>.
         </p>
       </section>
     </div>
