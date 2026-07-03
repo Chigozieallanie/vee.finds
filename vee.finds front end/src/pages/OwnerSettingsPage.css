@@ -1,0 +1,36 @@
+.form-card {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.owner-settings .page-title {
+  margin-bottom: 18px;
+}
+
+.owner-settings .input-group {
+  margin-bottom: 18px;
+}
+
+.owner-settings label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.owner-settings input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface-strong);
+  color: var(--text);
+}
+
+.owner-settings .button-primary {
+  width: auto;
+}
+
+.owner-settings .success {
+  margin-bottom: 18px;
+}

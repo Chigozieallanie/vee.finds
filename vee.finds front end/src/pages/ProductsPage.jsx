@@ -4,45 +4,213 @@ import { useCart } from '../contexts/CartContext'
 const initialProducts = [
   {
     id: 'bag-01',
-    title: 'Signature Tote Bag',
-    price: 59.99,
-    description: 'Handcrafted with premium materials and stylish details.',
-    image: '/assets/hero.png',
+    title: 'Simple bags',
+    price: UGX50000,
+    description: 'Simple everyday bag with a clean, minimal look. Lightweight, easy to carry and perfect for daily use.',
+    image: '/simplebag.png',
   },
   {
     id: 'bag-02',
-    title: 'Travel Crossbody',
-    price: 44.99,
-    description: 'Lightweight, secure, and perfect for every journey.',
-    image: '/assets/react.svg',
+    title: 'Black charm bag',
+    price: UGX44990,
+    description: 'Black shoulder bag with cute charm details Simple, stylish and easy to match with any outfit.',
+    image: '/black charm.png',
   },
   {
     id: 'bag-03',
     title: 'Weekend Backpack',
     price: 69.99,
     description: 'Roomy interior with smart compartments for all essentials.',
-    image: '/assets/vite.svg',
+    image: '/coach bags.png',
   },
   {
     id: 'bag-04',
     title: 'Mini Clutch',
     price: 34.99,
     description: 'Compact evening bag with sleek, modern design.',
-    image: '/assets/hero.png',
+    image: '/denmi.png',
   },
   {
     id: 'accessory-01',
     title: 'Leather Keychain',
     price: 12.0,
     description: 'A polished finishing touch for any bag or set of keys.',
-    image: '/assets/react.svg',
+    image: '/leopard print bag.jpeg',
   },
   {
     id: 'accessory-02',
     title: 'Silk Scarf',
     price: 24.0,
     description: 'Luxurious color accent for bags and outfits.',
-    image: '/assets/vite.svg',
+    image: '/pinky y2.png',
+  },
+  {
+    id: 'bag-01',
+    title: 'Signature Tote Bag',
+    price: 59.99,
+    description: 'Handcrafted with premium materials and stylish details.',
+    image: '/simplebag.png',
+  },
+  {
+    id: 'bag-02',
+    title: 'Travel Crossbody',
+    price: 44.99,
+    description: 'Lightweight, secure, and perfect for every journey.',
+    image: '/black charm.png',
+  },
+  {
+    id: 'bag-03',
+    title: 'Weekend Backpack',
+    price: 69.99,
+    description: 'Roomy interior with smart compartments for all essentials.',
+    image: '/coach bags.png',
+  },
+  {
+    id: 'bag-01',
+    title: 'Signature Tote Bag',
+    price: 59.99,
+    description: 'Handcrafted with premium materials and stylish details.',
+    image: '/simplebag.png',
+  },
+  {
+    id: 'bag-02',
+    title: 'Travel Crossbody',
+    price: 44.99,
+    description: 'Lightweight, secure, and perfect for every journey.',
+    image: '/black charm.png',
+  },
+  {
+    id: 'bag-03',
+    title: 'Weekend Backpack',
+    price: 69.99,
+    description: 'Roomy interior with smart compartments for all essentials.',
+    image: '/coach bags.png',
+  },
+  {
+    id: 'bag-01',
+    title: 'Signature Tote Bag',
+    price: 59.99,
+    description: 'Handcrafted with premium materials and stylish details.',
+    image: '/simplebag.png',
+  },
+  {
+    id: 'bag-02',
+    title: 'Travel Crossbody',
+    price: 44.99,
+    description: 'Lightweight, secure, and perfect for every journey.',
+    image: '/black charm.png',
+  },
+  {
+    id: 'bag-03',
+    title: 'Weekend Backpack',
+    price: 69.99,
+    description: 'Roomy interior with smart compartments for all essentials.',
+    image: '/coach bags.png',
+  },
+  {
+    id: 'bag-01',
+    title: 'Signature Tote Bag',
+    price: 59.99,
+    description: 'Handcrafted with premium materials and stylish details.',
+    image: '/simplebag.png',
+  },
+  {
+    id: 'bag-02',
+    title: 'Travel Crossbody',
+    price: 44.99,
+    description: 'Lightweight, secure, and perfect for every journey.',
+    image: '/black charm.png',
+  },
+  {
+    id: 'bag-03',
+    title: 'Weekend Backpack',
+    price: 69.99,
+    description: 'Roomy interior with smart compartments for all essentials.',
+    image: '/coach bags.png',
+  },
+  {
+    id: 'bag-01',
+    title: 'Signature Tote Bag',
+    price: 59.99,
+    description: 'Handcrafted with premium materials and stylish details.',
+    image: '/simplebag.png',
+  },
+  {
+    id: 'bag-02',
+    title: 'Travel Crossbody',
+    price: 44.99,
+    description: 'Lightweight, secure, and perfect for every journey.',
+    image: '/black charm.png',
+  },
+  {
+    id: 'bag-03',
+    title: 'Weekend Backpack',
+    price: 69.99,
+    description: 'Roomy interior with smart compartments for all essentials.',
+    image: '/coach bags.png',
+  },
+  {
+    id: 'bag-01',
+    title: 'Signature Tote Bag',
+    price: 59.99,
+    description: 'Handcrafted with premium materials and stylish details.',
+    image: '/simplebag.png',
+  },
+  {
+    id: 'bag-02',
+    title: 'Travel Crossbody',
+    price: 44.99,
+    description: 'Lightweight, secure, and perfect for every journey.',
+    image: '/black charm.png',
+  },
+  {
+    id: 'bag-03',
+    title: 'Weekend Backpack',
+    price: 69.99,
+    description: 'Roomy interior with smart compartments for all essentials.',
+    image: '/coach bags.png',
+  },
+  {
+    id: 'bag-01',
+    title: 'Signature Tote Bag',
+    price: 59.99,
+    description: 'Handcrafted with premium materials and stylish details.',
+    image: '/simplebag.png',
+  },
+  {
+    id: 'bag-02',
+    title: 'Travel Crossbody',
+    price: 44.99,
+    description: 'Lightweight, secure, and perfect for every journey.',
+    image: '/black charm.png',
+  },
+  {
+    id: 'bag-03',
+    title: 'Weekend Backpack',
+    price: 69.99,
+    description: 'Roomy interior with smart compartments for all essentials.',
+    image: '/coach bags.png',
+  },
+  {
+    id: 'bag-01',
+    title: 'Signature Tote Bag',
+    price: 59.99,
+    description: 'Handcrafted with premium materials and stylish details.',
+    image: '/simplebag.png',
+  },
+  {
+    id: 'bag-02',
+    title: 'Travel Crossbody',
+    price: 44.99,
+    description: 'Lightweight, secure, and perfect for every journey.',
+    image: '/black charm.png',
+  },
+  {
+    id: 'bag-03',
+    title: 'Weekend Backpack',
+    price: 69.99,
+    description: 'Roomy interior with smart compartments for all essentials.',
+    image: '/coach bags.png',
   },
 ]
 
@@ -65,7 +233,7 @@ export default function ProductsPage() {
         {initialProducts.map((product) => (
           <article key={product.id} className="product-card">
             <div className="product-image">
-              <span>{product.title}</span>
+              <img src={encodeURI(product.image)} alt={product.title} className="product-img" />
             </div>
             <div>
               <h3>{product.title}</h3>
@@ -94,13 +262,6 @@ export default function ProductsPage() {
             </div>
           </article>
         ))}
-      </div>
-      <div className="notice-card">
-        <h3>Featured collection</h3>
-        <p>
-          Use your own bag images by replacing the `image` values with the correct asset paths in
-          `src/pages/ProductsPage.jsx`.
-        </p>
       </div>
     </section>
   )
