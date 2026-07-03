@@ -306,6 +306,11 @@ textarea {
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover .product-image img.product-img {
+  transform: scale(1.05);
 }
 
 .product-card h3 {
