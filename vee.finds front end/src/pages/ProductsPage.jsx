@@ -18,9 +18,9 @@ const initialProducts = [
   },
   {
     id: 'bag-03',
-    title: 'Weekend Backpack',
-    price: 69.99,
-    description: 'Roomy interior with smart compartments for all essentials.',
+    title: 'Coach bags',
+    price: UGX69990,
+    description: 'Elegant Coach-inspired shoulder bag with cute charm details 🤍Spacious, classy & easy to style with both casual and dressy outfits 🫶Perfect everyday statement bagRoomy interior with smart compartments for all essentials.',
     image: '/coach bags.png',
   },
   {
