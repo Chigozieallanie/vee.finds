@@ -1,43 +1,85 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import './VerifyPage.css'
 
 export default function VerifyPage() {
   const [code, setCode] = useState('')
   const [error, setError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
   const { verifyCode, notification } = useAuth()
   const navigate = useNavigate()
 
+  const handleCodeChange = (event) => {
+    const digitsOnly = event.target.value.replace(/\D/g, '').slice(0, 6)
+    setCode(digitsOnly)
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault()
+    setSubmitting(true)
     if (verifyCode(code)) {
       setError('')
       navigate('/login')
     } else {
       setError('Invalid activation code. Use 123456.')
+      setSubmitting(false)
     }
   }
 
   return (
-    <section className="form-card">
-      <h1 className="page-title">Activate your account</h1>
-      {notification && <div className="alert">{notification}</div>}
-      {error && <div className="error">{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div className="input-group">
-          <label htmlFor="activation">Activation code</label>
-          <input
-            id="activation"
-            type="text"
-            value={code}
-            onChange={(event) => setCode(event.target.value)}
-            placeholder="123456"
-          />
+    <div className="verify-wrapper">
+      <section className="form-card">
+        <div className="form-card-badge">
+          <img src="/logo.jpeg" alt="VeeFinds" />
         </div>
-        <button type="submit" className="button button-primary">
-          Verify phone
-        </button>
-      </form>
-    </section>
+
+        <h1 className="page-title">Activate your account</h1>
+        <p className="page-subtitle">Enter the 6-digit code we texted you</p>
+
+        {notification && (
+          <div className="alert alert-success">
+            <span className="alert-icon">✓</span>
+            {notification}
+          </div>
+        )}
+        {error && (
+          <div className="alert alert-error">
+            <span className="alert-icon">!</span>
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label htmlFor="activation">Activation code</label>
+            <input
+              id="activation"
+              type="text"
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              value={code}
+              onChange={handleCodeChange}
+              placeholder="• • • • • •"
+              className="otp-input"
+              maxLength={6}
+              autoFocus
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="button button-primary"
+            disabled={submitting || code.length < 6}
+          >
+            {submitting ? 'Verifying…' : 'Verify phone'}
+          </button>
+        </form>
+
+        <p className="form-footer">
+          Didn't get a code? <button type="button" className="form-link-btn">Resend code</button>
+        </p>
+      </section>
+    </div>
   )
 }

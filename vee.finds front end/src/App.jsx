@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Header from './components/Header'
+import Footer from './components/Footer'
 import HomePage from './pages/HomePage'
 import SignupPage from './pages/SignupPage'
 import VerifyPage from './pages/VerifyPage'
@@ -42,6 +43,7 @@ function App() {
           <Route path="*" element={<Navigate to="/404" replace />} />
         </Routes>
       </main>
+      <Footer />
     </div>
   )
 }
