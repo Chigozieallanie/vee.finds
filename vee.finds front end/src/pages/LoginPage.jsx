@@ -78,7 +78,7 @@ export default function LoginPage() {
           New to VeeFinds? <Link to="/signup" className="form-link">Create an account</Link>
         </p>
         <p className="footer-note small-note">
-          Owner access is granted only to <strong>{OWNER_EMAIL}</strong>.
+          Owner access is granted only to <strong>{ownerEmail}</strong>.
         </p>
       </section>
     </div>

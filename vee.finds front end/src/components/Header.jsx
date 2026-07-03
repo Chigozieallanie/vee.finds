@@ -18,7 +18,10 @@ export default function Header() {
         <NavLink to="/products">Products</NavLink>
         <NavLink to="/contact">Contact</NavLink>
         {isAuthenticated && <NavLink to="/communications">Communications</NavLink>}
-        {isOwner && <NavLink to={ADMIN_INBOX_ROUTE}>Inbox</NavLink>}
+        {isOwner && <>
+          <NavLink to={ADMIN_INBOX_ROUTE}>Inbox</NavLink>
+          <NavLink to="/admin/settings">Owner settings</NavLink>
+        </>}
       </nav>
       <div className="header-actions">
         {isAuthenticated ? (

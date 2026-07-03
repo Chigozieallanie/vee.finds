@@ -11,6 +11,7 @@ import CartPage from './pages/CartPage'
 import ContactPage from './pages/ContactPage'
 import CommunicationsPage from './pages/CommunicationsPage'
 import AdminInboxPage from './pages/AdminInboxPage'
+import OwnerSettingsPage from './pages/OwnerSettingsPage'
 import NotFoundPage from './pages/NotFoundPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import OwnerRoute from './components/OwnerRoute'
@@ -55,6 +56,14 @@ function App() {
             element={
               <OwnerRoute>
                 <AdminInboxPage />
+              </OwnerRoute>
+            }
+          />
+          <Route
+            path="/admin/settings"
+            element={
+              <OwnerRoute>
+                <OwnerSettingsPage />
               </OwnerRoute>
             }
           />
