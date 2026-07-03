@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage'
 import ProductsPage from './pages/ProductsPage'
 import CartPage from './pages/CartPage'
 import ContactPage from './pages/ContactPage'
+import CommunicationsPage from './pages/CommunicationsPage'
 import NotFoundPage from './pages/NotFoundPage'
 import ProtectedRoute from './components/ProtectedRoute'
 
@@ -39,6 +40,14 @@ function App() {
             }
           />
           <Route path="/contact" element={<ContactPage />} />
+          <Route
+            path="/communications"
+            element={
+              <ProtectedRoute>
+                <CommunicationsPage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/404" element={<NotFoundPage />} />
           <Route path="*" element={<Navigate to="/404" replace />} />
         </Routes>

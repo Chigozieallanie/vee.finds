@@ -56,6 +56,36 @@
   transform: translateY(-3px);
 }
 
+.footer-contact {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.5rem 0;
+}
+
+.footer-email-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #e6dcf0;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer-email-link:hover {
+  color: #ffffff;
+}
+
+.footer-email-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+}
+
 .footer-copyright {
   margin: 0;
   font-size: 0.8rem;

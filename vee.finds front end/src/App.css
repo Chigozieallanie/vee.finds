@@ -65,6 +65,13 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.site-header .button {
+  padding: 8px 16px;
+  font-size: 0.92rem;
+  min-width: 104px;
+  box-shadow: 0 10px 20px rgba(16, 24, 40, 0.08);
+}
+
 .button:hover {
   transform: translateY(-1px);
 }
@@ -126,7 +133,6 @@
 .feature-card,
 .form-card,
 .product-card,
-.cart-card,
 .contact-card,
 .notice-card {
   background: var(--surface);
@@ -134,6 +140,54 @@
   border-radius: var(--radius);
   padding: 24px;
   box-shadow: var(--shadow);
+}
+
+.message-thread {
+  display: grid;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.message-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  background: var(--surface-strong);
+}
+
+.message-meta {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.message-meta strong {
+  color: var(--text);
+}
+
+.message-body {
+  margin: 0 0 14px;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+.message-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.message-status {
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(119, 135, 255, 0.14);
+  color: var(--primary);
+  font-size: 0.9rem;
+  font-weight: 700;
 }
 
 .form-card label,

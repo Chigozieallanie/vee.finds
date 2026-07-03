@@ -16,6 +16,7 @@ export default function Header() {
         <NavLink to="/">Home</NavLink>
         <NavLink to="/products">Products</NavLink>
         <NavLink to="/contact">Contact</NavLink>
+        {isAuthenticated && <NavLink to="/communications">Communications</NavLink>}
       </nav>
       <div className="header-actions">
         {isAuthenticated ? (
