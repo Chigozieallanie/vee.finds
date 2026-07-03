@@ -11,7 +11,7 @@ export default function CartPage() {
       items.map((item) => (
         <tr key={item.id}>
           <td>{item.title}</td>
-          <td>${item.price.toFixed(2)}</td>
+          <td>UGX {item.price.toLocaleString()}</td>
           <td>
             <input
               type="number"
@@ -20,7 +20,7 @@ export default function CartPage() {
               onChange={(event) => updateQuantity(item.id, Number(event.target.value))}
             />
           </td>
-          <td>${(item.price * item.quantity).toFixed(2)}</td>
+          <td>UGX {(item.price * item.quantity).toLocaleString()}</td>
           <td>
             <button className="button button-outline" onClick={() => removeFromCart(item.id)}>
               Remove
@@ -52,7 +52,7 @@ export default function CartPage() {
           </div>
           <div className="cart-summary">
             <p className="footer-note">Order total</p>
-            <p className="price">${total.toFixed(2)}</p>
+            <p className="price">UGX {total.toLocaleString()}</p>
             <button className="button button-primary" onClick={clearCart}>
               Clear cart
             </button>
