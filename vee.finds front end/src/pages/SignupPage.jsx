@@ -71,7 +71,7 @@ export default function SignupPage() {
                 type="tel"
                 value={phone}
                 onChange={(event) => setPhone(event.target.value)}
-                placeholder="08123456789"
+                placeholder="+256 7XX XXX XXX"
               />
             </div>
           </div>

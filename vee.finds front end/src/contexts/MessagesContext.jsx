@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { useNotifications } from './NotificationContext'
 
 const MessagesContext = createContext(null)
 
@@ -12,6 +13,7 @@ const getSavedMessages = () => {
 
 export function MessagesProvider({ children }) {
   const [messages, setMessages] = useState(getSavedMessages)
+  const { pushNotification } = useNotifications()
 
   useEffect(() => {
     window.localStorage.setItem('vee-messages', JSON.stringify(messages))
@@ -25,6 +27,22 @@ export function MessagesProvider({ children }) {
       createdAt: new Date().toISOString(),
     }
     setMessages((current) => [nextMessage, ...current])
+
+    const isAdminReply = nextMessage.sender === 'Admin'
+
+    if (isAdminReply) {
+      pushNotification({
+        type: 'reply',
+        text: `VeeFinds replied: "${(payload.body || '').slice(0, 60)}"`,
+        forEmail: payload.email,
+      })
+    } else {
+      pushNotification({
+        type: 'message',
+        text: `${payload.email || 'A customer'} sent a new message: "${(payload.body || '').slice(0, 60)}"`,
+        forEmail: 'ADMIN',
+      })
+    }
   }
 
   const getMessagesForUser = (email) =>

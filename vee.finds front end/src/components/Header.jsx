@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { useCart } from '../contexts/CartContext'
 import { ADMIN_INBOX_ROUTE } from '../config.js'
+import NotificationBell from './NotificationBell'
 
 export default function Header() {
   const { isAuthenticated, isOwner, user, logout } = useAuth()
@@ -15,7 +16,9 @@ export default function Header() {
       </div>
       <nav className="site-nav">
         <NavLink to="/">Home</NavLink>
-        <NavLink to="/products">Products</NavLink>
+        <NavLink to="/products">Bags</NavLink>
+        <NavLink to="/gift-packages">Bag Accessories</NavLink>
+        <NavLink to="/bag-accessories">Gift Packages</NavLink>
         <NavLink to="/contact">Contact</NavLink>
         {isAuthenticated && <NavLink to="/communications">Communications</NavLink>}
         {isOwner && <>
@@ -42,6 +45,9 @@ export default function Header() {
             <button className="button button-primary" onClick={() => navigate('/login')}>
               Login
             </button>
+            {isAuthenticated && (
+  <NotificationBell forEmail={isOwner ? 'ADMIN' : user.email} />
+)}
           </>
         )}
       </div>

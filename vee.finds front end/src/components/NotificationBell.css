@@ -1,0 +1,98 @@
+/* components/NotificationBell.css */
+.notif-wrapper {
+  position: relative;
+}
+
+.notif-bell {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #4a3160;
+  padding: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.15s;
+}
+
+.notif-bell:hover {
+  background: #f1e9f7;
+}
+
+.notif-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #cfa96b;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+}
+
+.notif-dropdown {
+  position: absolute;
+  top: 130%;
+  right: 0;
+  width: 320px;
+  max-height: 380px;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 12px 32px rgba(74, 49, 96, 0.2);
+  z-index: 50;
+  font-family: "Georgia", "Segoe UI", sans-serif;
+}
+
+.notif-dropdown-header {
+  padding: 0.9rem 1.1rem;
+  font-weight: 700;
+  color: #4a3160;
+  border-bottom: 1px solid #f0e6f7;
+}
+
+.notif-empty {
+  padding: 1.5rem;
+  text-align: center;
+  color: #8a7a99;
+  font-size: 0.85rem;
+}
+
+.notif-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.notif-item {
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.8rem 1.1rem;
+  border-bottom: 1px solid #f7f1fb;
+  align-items: flex-start;
+}
+
+.notif-item p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #3a2e46;
+  line-height: 1.4;
+}
+
+.notif-time {
+  font-size: 0.7rem;
+  color: #a696b8;
+}
+
+.notif-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}

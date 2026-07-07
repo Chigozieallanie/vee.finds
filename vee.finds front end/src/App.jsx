@@ -15,6 +15,8 @@ import OwnerSettingsPage from './pages/OwnerSettingsPage'
 import NotFoundPage from './pages/NotFoundPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import OwnerRoute from './components/OwnerRoute'
+import GiftPackagesPage from './pages/GiftPackagesPage'
+import BagAccessoriesPage from './pages/BagAccessoriesPage'
 
 function App() {
   return (
@@ -22,10 +24,34 @@ function App() {
       <Header />
       <main className="app-content">
         <Routes>
-          <Route path="/" element={<HomePage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/verify" element={<VerifyPage />} />
           <Route path="/login" element={<LoginPage />} />
+
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <HomePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/gift-packages"
+            element={
+              <ProtectedRoute>
+                <GiftPackagesPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/bag-accessories"
+            element={
+              <ProtectedRoute>
+                <BagAccessoriesPage />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/products"
             element={
@@ -42,7 +68,14 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/contact" element={<ContactPage />} />
+          <Route
+            path="/contact"
+            element={
+              <ProtectedRoute>
+                <ContactPage />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/communications"
             element={

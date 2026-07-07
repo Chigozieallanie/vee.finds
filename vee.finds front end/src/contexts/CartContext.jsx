@@ -1,9 +1,13 @@
 import { createContext, useContext, useMemo, useState } from 'react'
+import { useNotifications } from './NotificationContext'
+import { useAuth } from './AuthContext'
 
 const CartContext = createContext(null)
 
 export function CartProvider({ children }) {
   const [items, setItems] = useState([])
+  const { pushNotification } = useNotifications()
+  const { user } = useAuth()
 
   const addToCart = (product, quantity) => {
     if (quantity < 1) return
@@ -17,6 +21,12 @@ export function CartProvider({ children }) {
         )
       }
       return [...current, { ...product, quantity }]
+    })
+
+    pushNotification({
+      type: 'cart',
+      text: `${user?.email || 'A customer'} added ${quantity} × ${product.title} to their cart.`,
+      forEmail: 'ADMIN',
     })
   }
 
