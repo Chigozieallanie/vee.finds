@@ -9,6 +9,7 @@ export default function ContactPage() {
   const [subject, setSubject] = useState('')
   const [body, setBody] = useState('')
   const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
   const [status, setStatus] = useState('')
   const navigate = useNavigate()
 
@@ -16,6 +17,7 @@ export default function ContactPage() {
     event.preventDefault()
     const trimmedBody = body.trim()
     const contactEmail = isAuthenticated ? user.email : email.trim()
+    const trimmedPhone = phone.trim()
 
     if (!contactEmail) {
       setStatus('Please provide your email address so we can respond.')
@@ -29,6 +31,7 @@ export default function ContactPage() {
 
     sendMessage({
       email: contactEmail,
+      phone: trimmedPhone,
       subject: subject.trim() || 'General request',
       body: trimmedBody,
       status: 'Sent',
@@ -37,6 +40,7 @@ export default function ContactPage() {
     setStatus('Your message has been submitted. We will respond soon.')
     setSubject('')
     setBody('')
+    setPhone('')
     if (!isAuthenticated) {
       setEmail('')
     }
@@ -73,6 +77,17 @@ export default function ContactPage() {
             <div className="footer-note">{user.email}</div>
           </div>
         )}
+
+        <div className="input-group">
+          <label htmlFor="phone">Your phone number</label>
+          <input
+            id="phone"
+            type="tel"
+            value={phone}
+            onChange={(event) => setPhone(event.target.value)}
+            placeholder="07XX XXX XXX"
+          />
+        </div>
 
         <div className="input-group">
           <label htmlFor="subject">Subject</label>

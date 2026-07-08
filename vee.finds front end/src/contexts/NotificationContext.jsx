@@ -1,11 +1,34 @@
-// contexts/NotificationContext.jsx
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 const NotificationContext = createContext(null)
 
-// notifications: { id, type: 'cart' | 'message' | 'reply', text, forEmail, read, createdAt }
+const STORAGE_KEY = 'vee-notifications'
+
+const getSavedNotifications = () => {
+  try {
+    return JSON.parse(window.localStorage.getItem(STORAGE_KEY) ?? '[]')
+  } catch {
+    return []
+  }
+}
+
 export function NotificationProvider({ children }) {
-  const [notifications, setNotifications] = useState([])
+  const [notifications, setNotifications] = useState(getSavedNotifications)
+
+  useEffect(() => {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(notifications))
+  }, [notifications])
+
+  // keep tabs in sync when another tab changes localStorage
+  useEffect(() => {
+    const handleStorageChange = (event) => {
+      if (event.key === STORAGE_KEY) {
+        setNotifications(getSavedNotifications())
+      }
+    }
+    window.addEventListener('storage', handleStorageChange)
+    return () => window.removeEventListener('storage', handleStorageChange)
+  }, [])
 
   const pushNotification = ({ type, text, forEmail }) => {
     setNotifications((prev) => [
@@ -13,7 +36,7 @@ export function NotificationProvider({ children }) {
         id: Date.now() + Math.random(),
         type,
         text,
-        forEmail, // 'ADMIN' for owner-facing, or the customer's email for customer-facing
+        forEmail,
         read: false,
         createdAt: new Date().toISOString(),
       },

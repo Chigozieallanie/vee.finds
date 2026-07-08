@@ -11,22 +11,29 @@ export function CartProvider({ children }) {
 
   const addToCart = (product, quantity) => {
     if (quantity < 1) return
+
     setItems((current) => {
       const existing = current.find((item) => item.id === product.id)
-      if (existing) {
-        return current.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + quantity }
-            : item,
-        )
-      }
-      return [...current, { ...product, quantity }]
-    })
+      const updatedItems = existing
+        ? current.map((item) =>
+            item.id === product.id
+              ? { ...item, quantity: item.quantity + quantity }
+              : item,
+          )
+        : [...current, { ...product, quantity }]
 
-    pushNotification({
-      type: 'cart',
-      text: `${user?.email || 'A customer'} added ${quantity} × ${product.title} to their cart.`,
-      forEmail: 'ADMIN',
+      const newTotal = updatedItems.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0,
+      )
+
+      pushNotification({
+        type: 'cart',
+        text: `${user?.email || 'A customer'} added ${quantity} × ${product.title}. Cart total: UGX ${newTotal.toLocaleString()}.`,
+        forEmail: 'ADMIN',
+      })
+
+      return updatedItems
     })
   }
 

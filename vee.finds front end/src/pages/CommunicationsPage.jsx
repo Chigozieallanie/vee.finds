@@ -17,7 +17,7 @@ export default function CommunicationsPage() {
     <section className="contact-card">
       <h1 className="page-title">My communications</h1>
       <p className="footer-note">
-        This page shows your saved support messages and recent requests.
+        Find your replies & messages here.
       </p>
 
       {messages.length ? (

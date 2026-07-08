@@ -16,9 +16,9 @@ export default function Header() {
       </div>
       <nav className="site-nav">
         <NavLink to="/">Home</NavLink>
-        <NavLink to="/products">Bags</NavLink>
-        <NavLink to="/gift-packages">Bag Accessories</NavLink>
-        <NavLink to="/bag-accessories">Gift Packages</NavLink>
+        <NavLink to="/bags">Bags</NavLink>
+        <NavLink to="/bag-accessories">Bag Accessories</NavLink>
+        <NavLink to="/gift-packages">Gift Packages</NavLink>
         <NavLink to="/contact">Contact</NavLink>
         {isAuthenticated && <NavLink to="/communications">Communications</NavLink>}
         {isOwner && <>
@@ -29,6 +29,7 @@ export default function Header() {
       <div className="header-actions">
         {isAuthenticated ? (
           <>
+            <NotificationBell forEmail={isOwner ? 'ADMIN' : user.email} />
             <span className="user-chip">{user.email || 'Member'}</span>
             <button className="button button-secondary" onClick={() => navigate('/cart')}>
               Cart ({items.length})
@@ -45,9 +46,6 @@ export default function Header() {
             <button className="button button-primary" onClick={() => navigate('/login')}>
               Login
             </button>
-            {isAuthenticated && (
-  <NotificationBell forEmail={isOwner ? 'ADMIN' : user.email} />
-)}
           </>
         )}
       </div>

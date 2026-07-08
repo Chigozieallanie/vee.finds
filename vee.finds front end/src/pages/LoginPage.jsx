@@ -9,11 +9,11 @@ export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
-  const { login, notification, user } = useAuth()
+  const { login, notification } = useAuth()
   const { ownerEmail } = useSettings()
   const navigate = useNavigate()
   const location = useLocation()
-  const from = location.state?.from?.pathname || '/products'
+  const from = location.state?.from?.pathname || '/bags'
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -21,14 +21,16 @@ export default function LoginPage() {
       setError('Enter your email to login.')
       return
     }
-    if (!user?.isVerified) {
-      setError('Please verify your account before logging in.')
-      return
-    }
     setError('')
     setSubmitting(true)
-    login(email)
-    navigate(from, { replace: true })
+    const success = login(email)
+    setSubmitting(false)
+
+    if (success) {
+      navigate(from, { replace: true })
+    } else {
+      setError('Login failed. Check the notification above for details.')
+    }
   }
 
   return (

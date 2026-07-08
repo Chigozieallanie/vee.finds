@@ -6,7 +6,7 @@ import HomePage from './pages/HomePage'
 import SignupPage from './pages/SignupPage'
 import VerifyPage from './pages/VerifyPage'
 import LoginPage from './pages/LoginPage'
-import ProductsPage from './pages/ProductsPage'
+import ProductsPage from './pages/bags'
 import CartPage from './pages/CartPage'
 import ContactPage from './pages/ContactPage'
 import CommunicationsPage from './pages/CommunicationsPage'
@@ -53,7 +53,7 @@ function App() {
             }
           />
           <Route
-            path="/products"
+            path="/bags"
             element={
               <ProtectedRoute>
                 <ProductsPage />

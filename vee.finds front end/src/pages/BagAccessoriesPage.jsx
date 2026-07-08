@@ -3,105 +3,105 @@ import { useState } from 'react'
 import { useCart } from '../contexts/CartContext'
 import './BagAccessoriesPage.css'
 
-const bagAccessories = [
+const giftPackages = [
   {
-    id: 'acc-01',
-    title: 'Pink Ribbon Gift Box',
-    price: 18000,
-    description: 'Elegant pink gift box with a satin ribbon bracelet accent. Perfect for surprising someone special.',
-    image: `${import.meta.env.BASE_URL}G1.png`,
+    id: 'gift-01',
+    title: 'Pearl & Silver Charm Set',
+    price: 35000,
+    description: 'A dainty pearl strand with silver chain charms. Clips onto any bag strap or handle.',
+    image: `${import.meta.env.BASE_URL}cham1.jpeg`,
   },
   {
-    id: 'acc-02',
+    id: 'gift-02',
+    title: 'Blue Bow Bag Charm',
+    price: 50000,
+    description: 'A playful blue bow charm to add a pop of color to your bag.',
+    image: `${import.meta.env.BASE_URL}cham2.jpeg`,
+  },
+  {
+    id: 'gift-03',
+    title: 'Red Gem Keychain Charm',
+    price: 31000,
+    description: 'Gold-tone keychain charm with red gem beads. A bold, eye-catching accent.',
+    image: `${import.meta.env.BASE_URL}cham3.jpeg`,
+  },
+  {
+    id: 'gift-04',
     title: 'Blush Wrap Gift Set',
-    price: 12000,
-    description: 'Soft blush wrapping with a clean, minimal finish. Great for birthdays and thank-you gifts.',
-    image: `${import.meta.env.BASE_URL}G2.jpg`,
+    price: 38000,
+    description: 'Gold-tone keychain charm with red gem beads. A bold, eye-catching accent.',
+    image: `${import.meta.env.BASE_URL}cham4.jpeg`,
   },
   {
-    id: 'acc-03',
-    title: 'Red Gem Keychain Charm',
+    id: 'gift-05',
+    title: 'Pearl & Silver Charm Set',
+    price: 34000,
+    description: 'Gold-tone keychain charm with red gem beads. A bold, eye-catching accent.',
+    image: `${import.meta.env.BASE_URL}cham5.jpeg`,
+  },
+  {
+    id: 'gift-06',
+    title: 'Pearl & Silver Charm Set',
+    price: 35000,
+    description: 'Gold-tone keychain charm with red gem beads. A bold, eye-catching accent.',
+    image: `${import.meta.env.BASE_URL}cham6.jpeg`,
+  },
+  {
+    id: 'gift-07',
+    title: 'Pearl & Silver Charm Set',
+    price: 23000,
+    description: 'Gold-tone keychain charm with red gem beads. A bold, eye-catching accents.',
+    image: `${import.meta.env.BASE_URL}cham7.jpg`,
+  },
+  {
+    id: 'gift-08',
+    title: 'Pearl & Silver Charm Set',
+    price: 20000,
+    description: 'Gold-tone keychain charm with red gem beads. A bold, eye-catching accent.',
+    image: `${import.meta.env.BASE_URL}cham8.jpg`,
+  },
+  {
+    id: 'gift-09',
+    title: 'Pearl & Silver Charm Set',
     price: 13000,
-    description: 'Soft blush wrapping with a clean, minimal finish. Great for birthdays and thank-you gifts.',
-    image: `${import.meta.env.BASE_URL}G3.jpeg`,
+    description: 'Gold-tone keychain charm with red gem beads. A bold, eye-catching accent.',
+    image: `${import.meta.env.BASE_URL}cham9.jpg`,
   },
   {
-    id: 'acc-04',
-    title: 'Red Gem Keychain Charm',
-    price: 14000,
-    description: 'Soft blush wrapping with a clean, minimal finish. Great for birthdays and thank-you gifts.',
-    image: `${import.meta.env.BASE_URL}G3.jpg`,
-  },
-  {
-    id: 'acc-05',
-    title: 'Red Gem Keychain Charm',
-    price: 11000,
-    description: 'Soft blush wrapping with a clean, minimal finish. Great for birthdays and thank-you gifts.',
-    image: `${import.meta.env.BASE_URL}g4.jpg`,
-  },
-  {
-    id: 'acc-06',
-    title: 'Red Gem Keychain Charm',
+    id: 'gift-10',
+    title: 'Pearl & Silver Charm Set',
     price: 10000,
-    description: 'Soft blush wrapping with a clean, minimal finish. Great for birthdays and thank-you gifts.',
-    image: `${import.meta.env.BASE_URL}g5.jpg`,
+    description: 'Gold-tone keychain charm with red gem beads. A bold, eye-catching accent.',
+    image: `${import.meta.env.BASE_URL}cham10.jpg`,
   },
   {
-    id: 'acc-07',
-    title: 'Red Gem Keychain Charm',
-    price: 9000,
-    description: 'Soft blush wrapping with a clean, minimal finish. Great for birthdays and thank-you gifts.',
-    image: `${import.meta.env.BASE_URL}g6.jpg`,
+    id: 'gift-11',
+    title: 'Pearl & Silver Charm Set',
+    price: 15000,
+    description: 'Gold-tone keychain charm with red gem beads. A bold, eye-catching accent.',
+    image: `${import.meta.env.BASE_URL}cham11.jpg`,
   },
   {
-    id: 'acc-08',
-    title: 'Red Gem Keychain Charm',
-    price: 7000,
-    description: 'Soft blush wrapping with a clean, minimal finish. Great for birthdays and thank-you gifts.',
-    image: `${import.meta.env.BASE_URL}g7.jpg`,
-  },
-  {
-    id: 'acc-09',
-    title: 'Red Gem Keychain Charm',
-    price: 6000,
-    description: 'Soft blush wrapping with a clean, minimal finish. Great for birthdays and thank-you gifts.',
-    image: `${import.meta.env.BASE_URL}g8.jpg`,
-  },
-  {
-    id: 'acc-10',
-    title: 'Red Gem Keychain Charm',
-    price: 5000,
-    description: 'Soft blush wrapping with a clean, minimal finish. Great for birthdays and thank-you gifts.',
-    image: `${import.meta.env.BASE_URL}g11.jpg`,
-  },
-  {
-    id: 'acc-11',
-    title: 'Red Gem Keychain Charm',
-    price: 4000,
-    description: 'Soft blush wrapping with a clean, minimal finish. Great for birthdays and thank-you gifts.',
-    image: `${import.meta.env.BASE_URL}g15.jpg`,
-  },
-  {
-    id: 'acc-12',
-    title: 'Red Gem Keychain Charm',
-    price: 3000,
-    description: 'Soft blush wrapping with a clean, minimal finish. Great for birthdays and thank-you gifts.',
-    image: `${import.meta.env.BASE_URL}g14.jpg`,
+    id: 'gift-12',
+    title: 'Pearl & Silver Charm Set',
+    price: 18000,
+    description: 'Gold-tone keychain charm with red gem beads. A bold, eye-catching accent.',
+    image: `${import.meta.env.BASE_URL}cham12.jpg`,
   },
 ]
 
-export default function BagAccessoriesPage() {
+export default function GiftPackagesPage() {
   const [quantities, setQuantities] = useState(
-    Object.fromEntries(bagAccessories.map((product) => [product.id, 1])),
+    Object.fromEntries(giftPackages.map((product) => [product.id, 1])),
   )
   const { addToCart } = useCart()
 
   return (
     <section>
-      <h1 className="page-title">Gift Packages</h1>
-      <p className="footer-note">Beautifully wrapped and ready to give. Choose a quantity, then add to your cart.</p>
+      <h1 className="page-title">Bag Accessories</h1>
+      <p className="footer-note">Charms, chains, and little extras to personalize your bag. Choose a quantity, then add to your cart.</p>
       <div className="product-grid">
-        {bagAccessories.map((product) => (
+        {giftPackages.map((product) => (
           <article key={product.id} className="product-card">
             <div className="product-image">
               <img src={product.image} alt={product.title} className="product-img" />

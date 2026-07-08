@@ -11,6 +11,7 @@ export default function ChatThread({ messages }) {
             <div>
               <strong>{message.subject || 'Support message'}</strong>
               <span>{message.email}</span>
+              {message.phone && <span className="message-phone">📞 {message.phone}</span>}
             </div>
             <time dateTime={message.createdAt}>
               {new Date(message.createdAt).toLocaleString()}
