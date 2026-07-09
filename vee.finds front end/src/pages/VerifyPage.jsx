@@ -8,7 +8,8 @@ export default function VerifyPage() {
   const [code, setCode] = useState('')
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
-  const { verifyCode, notification } = useAuth()
+  const [resending, setResending] = useState(false)
+  const { verifyCode, resendCode, notification } = useAuth()
   const navigate = useNavigate()
 
   const handleCodeChange = (event) => {
@@ -16,16 +17,25 @@ export default function VerifyPage() {
     setCode(digitsOnly)
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
     setSubmitting(true)
-    if (verifyCode(code)) {
+    const success = await verifyCode(code)
+    setSubmitting(false)
+
+    if (success) {
       setError('')
       navigate('/login')
     } else {
-      setError('Invalid activation code. Use 123456.')
-      setSubmitting(false)
+      setError('Invalid or expired activation code. Please try again.')
     }
+  }
+
+  const handleResend = async () => {
+    setResending(true)
+    setError('')
+    await resendCode()
+    setResending(false)
   }
 
   return (
@@ -78,7 +88,15 @@ export default function VerifyPage() {
         </form>
 
         <p className="form-footer">
-          Didn't get a code? <button type="button" className="form-link-btn">Resend code</button>
+          Didn't get a code?{' '}
+          <button
+            type="button"
+            className="form-link-btn"
+            onClick={handleResend}
+            disabled={resending}
+          >
+            {resending ? 'Resending…' : 'Resend code'}
+          </button>
         </p>
       </section>
     </div>

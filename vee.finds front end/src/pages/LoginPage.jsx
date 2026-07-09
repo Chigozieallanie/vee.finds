@@ -7,6 +7,7 @@ import './LoginPage.css'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const { login, notification } = useAuth()
@@ -15,15 +16,15 @@ export default function LoginPage() {
   const location = useLocation()
   const from = location.state?.from?.pathname || '/bags'
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    if (!email) {
-      setError('Enter your email to login.')
+    if (!email || !password) {
+      setError('Enter your email and password to login.')
       return
     }
     setError('')
     setSubmitting(true)
-    const success = login(email)
+    const success = await login(email, password)
     setSubmitting(false)
 
     if (success) {
@@ -68,6 +69,20 @@ export default function LoginPage() {
                 onChange={(event) => setEmail(event.target.value)}
                 placeholder="you@example.com"
                 autoFocus
+              />
+            </div>
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="login-password">Password</label>
+            <div className="input-field">
+              <span className="input-icon">🔒</span>
+              <input
+                id="login-password"
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                placeholder="Your password"
               />
             </div>
           </div>

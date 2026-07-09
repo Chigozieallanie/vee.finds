@@ -493,3 +493,22 @@ textarea {
     min-width: 0;
   }
 }
+
+
+:root {
+  --primary: #e8a0bb;        /* soft blush pink — was purple */
+  --primary-dark: #d17ea0;   /* deeper pink for hover states */
+  --accent-gold: #cfa96b;    /* your existing gold, keep this */
+  --accent-blue: #a8c4d9;    /* dusty periwinkle blue */
+
+  --background: #fdf6f7;     /* warm blush-white */
+  --surface: #ffffff;
+  --surface-strong: #fbeef1; /* pale pink surface */
+  --border: #f3d9e0;
+
+  --text: #4a2e3a;           /* warm plum-brown instead of purple */
+  --text-muted: #9c7b87;
+
+  --radius: 18px;
+  --shadow: 0 10px 24px rgba(232, 160, 187, 0.15);
+}

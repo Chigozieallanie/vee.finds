@@ -1,7 +1,7 @@
 .site-footer {
   margin-top: 3rem;
-  background: linear-gradient(160deg, #4a3160, #3a2650);
-  color: #e6dcf0;
+  background: linear-gradient(160deg, #6b0232, #a8577c);
+  color: #fbe4ec;
   font-family: "Georgia", "Segoe UI", sans-serif;
 }
 
@@ -45,13 +45,13 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  color: #e6dcf0;
+  background: rgba(255, 255, 255, 0.15);
+  color: #e1d8db;
   transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
 }
 
 .footer-social-link:hover {
-  background: linear-gradient(135deg, #b9a3d3, #cfa96b);
+  background: linear-gradient(135deg, #ff83b0, #cfa96b);
   color: #fff;
   transform: translateY(-3px);
 }
@@ -67,7 +67,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  color: #e6dcf0;
+  color: #fbe4ec;
   font-weight: 600;
   text-decoration: none;
 }
@@ -83,14 +83,14 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .footer-copyright {
   margin: 0;
   font-size: 0.8rem;
   letter-spacing: 0.02em;
-  color: #b9a8c9;
+  color: #e3bccb;
 }
 
 .footer-copyright::before {
@@ -98,6 +98,6 @@
   display: block;
   width: 40px;
   height: 1px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
   margin: 0 auto 0.9rem;
 }
