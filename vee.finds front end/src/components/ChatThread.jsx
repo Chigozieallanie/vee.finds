@@ -10,18 +10,19 @@ export default function ChatThread({ messages }) {
           <div className="message-meta">
             <div>
               <strong>{message.subject || 'Support message'}</strong>
-              <span>{message.email}</span>
-              {message.phone && <span className="message-phone">📞 {message.phone}</span>}
+              <span>{message.username}</span>
             </div>
-            <time dateTime={message.createdAt}>
-              {new Date(message.createdAt).toLocaleString()}
+            <time dateTime={message.created_at}>
+              {new Date(message.created_at).toLocaleString()}
             </time>
           </div>
 
           <p className="message-body">{message.body}</p>
 
           <div className="message-footer">
-            <span className="message-status">{message.status || 'New'}</span>
+            <span className="message-status">
+              {message.is_from_staff ? 'Reply from VeeFinds' : 'Sent'}
+            </span>
           </div>
         </article>
       ))}

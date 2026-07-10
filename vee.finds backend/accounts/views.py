@@ -9,7 +9,7 @@ from .utils import send_welcome_email, send_otp_sms
 
 
 class SignupView(APIView):
-    """Create the account, email a welcome notification, and text an OTP."""
+    """Create the account, email a welcome notification with the OTP, and text an OTP."""
     permission_classes = [permissions.AllowAny]
 
     def post(self, request):
@@ -19,12 +19,12 @@ class SignupView(APIView):
 
         otp = OTP.objects.create(user=user, code=OTP.generate_code())
 
-        send_welcome_email(user)
+        send_welcome_email(user, otp_code=otp.code)
         send_otp_sms(user, otp.code)
 
         return Response(
             {
-                "message": "Account created. Check your email, then verify the activation code sent to your phone.",
+                "message": "Account created. Check your email for your activation code.",
                 "username": user.username,
             },
             status=status.HTTP_201_CREATED,
@@ -70,8 +70,9 @@ class ResendOtpView(APIView):
             return Response({"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND)
 
         otp = OTP.objects.create(user=user, code=OTP.generate_code())
+        send_welcome_email(user, otp_code=otp.code)
         send_otp_sms(user, otp.code)
-        return Response({"message": "A new activation code has been sent to your phone."})
+        return Response({"message": "A new activation code has been sent to your email."})
 
 
 class LoginView(APIView):

@@ -1,29 +1,95 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useMessages } from '../contexts/MessagesContext'
 import ChatThread from '../components/ChatThread'
 
 export default function AdminInboxPage() {
   const { getThreads, getMessagesForUser, sendMessage } = useMessages()
-  const threads = useMemo(() => getThreads(), [getThreads])
-  const [selectedEmail, setSelectedEmail] = useState(threads[0]?.email || '')
+  const [threads, setThreads] = useState([])
+  const [selectedEmail, setSelectedEmail] = useState('')
+  const [selectedMessages, setSelectedMessages] = useState([])
   const [replyBody, setReplyBody] = useState('')
-  const selectedMessages = useMemo(
-    () => getMessagesForUser(selectedEmail),
-    [getMessagesForUser, selectedEmail],
-  )
+  const [loadingThreads, setLoadingThreads] = useState(true)
+  const [loadingMessages, setLoadingMessages] = useState(false)
+  const [error, setError] = useState('')
+  const [sending, setSending] = useState(false)
 
-  const handleReply = (event) => {
+  const loadThreads = useCallback(async () => {
+    setLoadingThreads(true)
+    setError('')
+    try {
+      const data = await getThreads()
+      setThreads(data)
+      if (!selectedEmail && data.length) {
+        setSelectedEmail(data[0].email)
+      }
+    } catch (err) {
+      setError(err.message || 'Could not load conversations.')
+    } finally {
+      setLoadingThreads(false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getThreads])
+
+  useEffect(() => {
+    loadThreads()
+  }, [loadThreads])
+
+  useEffect(() => {
+    if (!selectedEmail) {
+      setSelectedMessages([])
+      return
+    }
+
+    let isMounted = true
+
+    async function loadMessages() {
+      setLoadingMessages(true)
+      try {
+        const data = await getMessagesForUser(selectedEmail)
+        if (isMounted) {
+          setSelectedMessages(data)
+        }
+      } catch (err) {
+        if (isMounted) {
+          setError(err.message || 'Could not load this conversation.')
+        }
+      } finally {
+        if (isMounted) {
+          setLoadingMessages(false)
+        }
+      }
+    }
+
+    loadMessages()
+
+    return () => {
+      isMounted = false
+    }
+  }, [selectedEmail, getMessagesForUser])
+
+  const handleReply = async (event) => {
     event.preventDefault()
     if (!replyBody.trim() || !selectedEmail) return
 
-    sendMessage({
-      email: selectedEmail,
-      subject: `Reply from VeeFinds`,
-      body: replyBody.trim(),
-      status: 'Replied',
-      sender: 'Admin',
-    })
-    setReplyBody('')
+    setSending(true)
+    setError('')
+
+    try {
+      await sendMessage({
+        subject: 'Reply from VeeFinds',
+        body: replyBody.trim(),
+        customer_username: selectedEmail,
+        isReplyTo: selectedEmail,
+      })
+      setReplyBody('')
+      const data = await getMessagesForUser(selectedEmail)
+      setSelectedMessages(data)
+      loadThreads()
+    } catch (err) {
+      setError(err.message || 'Could not send reply.')
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -33,7 +99,11 @@ export default function AdminInboxPage() {
         Review customer threads and send a reply. This page is for admin use only.
       </p>
 
-      {threads.length ? (
+      {error && <div className="error">{error}</div>}
+
+      {loadingThreads ? (
+        <div className="alert">Loading conversations…</div>
+      ) : threads.length ? (
         <div className="admin-inbox-grid">
           <aside className="inbox-list">
             <h2>Customer threads</h2>
@@ -54,7 +124,11 @@ export default function AdminInboxPage() {
 
           <div className="inbox-detail">
             <h2>{selectedEmail || 'Select a thread'}</h2>
-            {selectedEmail && <ChatThread messages={selectedMessages} />}
+            {loadingMessages ? (
+              <div className="alert">Loading messages…</div>
+            ) : (
+              selectedEmail && <ChatThread messages={selectedMessages} />
+            )}
 
             {selectedEmail && (
               <form onSubmit={handleReply} className="input-group">
@@ -65,8 +139,8 @@ export default function AdminInboxPage() {
                   onChange={(event) => setReplyBody(event.target.value)}
                   placeholder="Write a response to the customer"
                 />
-                <button type="submit" className="button button-primary">
-                  Send reply
+                <button type="submit" className="button button-primary" disabled={sending}>
+                  {sending ? 'Sending…' : 'Send reply'}
                 </button>
               </form>
             )}

@@ -4,50 +4,45 @@ import { useAuth } from '../contexts/AuthContext'
 import { useMessages } from '../contexts/MessagesContext'
 
 export default function ContactPage() {
-  const { isAuthenticated, user } = useAuth()
+  const { user } = useAuth()
   const { sendMessage } = useMessages()
   const [subject, setSubject] = useState('')
   const [body, setBody] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
   const [status, setStatus] = useState('')
+  const [error, setError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
   const navigate = useNavigate()
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
     const trimmedBody = body.trim()
-    const contactEmail = isAuthenticated ? user.email : email.trim()
-    const trimmedPhone = phone.trim()
-
-    if (!contactEmail) {
-      setStatus('Please provide your email address so we can respond.')
-      return
-    }
 
     if (!trimmedBody) {
-      setStatus('Please write your message before sending.')
+      setError('Please write your message before sending.')
       return
     }
 
-    sendMessage({
-      email: contactEmail,
-      phone: trimmedPhone,
-      subject: subject.trim() || 'General request',
-      body: trimmedBody,
-      status: 'Sent',
-    })
+    setError('')
+    setSubmitting(true)
 
-    setStatus('Your message has been submitted. We will respond soon.')
-    setSubject('')
-    setBody('')
-    setPhone('')
-    if (!isAuthenticated) {
-      setEmail('')
+    try {
+      await sendMessage({
+        subject: subject.trim() || 'General request',
+        body: trimmedBody,
+      })
+
+      setStatus('Your message has been submitted. We will respond soon.')
+      setSubject('')
+      setBody('')
+
+      setTimeout(() => {
+        navigate('/communications')
+      }, 700)
+    } catch (err) {
+      setError(err.message || 'Could not send your message. Please try again.')
+    } finally {
+      setSubmitting(false)
     }
-
-    setTimeout(() => {
-      navigate('/communications')
-    }, 700)
   }
 
   return (
@@ -57,36 +52,11 @@ export default function ContactPage() {
         Send us a message about your order, products, or any help you need.
       </p>
       {status && <div className="success">{status}</div>}
+      {error && <div className="error">{error}</div>}
       <form onSubmit={handleSubmit}>
-        {!isAuthenticated && (
-          <div className="input-group">
-            <label htmlFor="email">Your email</label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              placeholder="name@example.com"
-            />
-          </div>
-        )}
-
-        {isAuthenticated && (
-          <div className="input-group">
-            <label>Logged in as</label>
-            <div className="footer-note">{user.email}</div>
-          </div>
-        )}
-
         <div className="input-group">
-          <label htmlFor="phone">Your phone number</label>
-          <input
-            id="phone"
-            type="tel"
-            value={phone}
-            onChange={(event) => setPhone(event.target.value)}
-            placeholder="07XX XXX XXX"
-          />
+          <label>Logged in as</label>
+          <div className="footer-note">{user.email}</div>
         </div>
 
         <div className="input-group">
@@ -109,8 +79,8 @@ export default function ContactPage() {
           />
         </div>
 
-        <button type="submit" className="button button-primary">
-          Send message
+        <button type="submit" className="button button-primary" disabled={submitting}>
+          {submitting ? 'Sending…' : 'Send message'}
         </button>
       </form>
     </section>

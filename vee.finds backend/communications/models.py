@@ -3,8 +3,16 @@ from django.db import models
 
 
 class Message(models.Model):
-    """A message thread entry between a customer and VeeFinds staff."""
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="messages")
+    """
+    A message thread entry between a customer and VeeFinds staff.
+
+    `customer` identifies whose thread this message belongs to (always the
+    customer, even for staff replies). `sender` identifies who actually
+    wrote this particular message (the customer themselves, or a staff
+    member replying on their behalf).
+    """
+    customer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="customer_messages")
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="sent_messages")
     subject = models.CharField(max_length=200, blank=True)
     body = models.TextField()
     is_from_staff = models.BooleanField(default=False)
@@ -14,5 +22,5 @@ class Message(models.Model):
         ordering = ["created_at"]
 
     def __str__(self):
-        sender = "Staff" if self.is_from_staff else self.user.username
-        return f"{sender}: {self.body[:30]}"
+        sender_label = "Staff" if self.is_from_staff else self.customer.username
+        return f"{sender_label}: {self.body[:30]}"

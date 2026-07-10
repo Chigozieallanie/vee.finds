@@ -2,14 +2,16 @@ from django.conf import settings
 from django.core.mail import send_mail
 
 
-def send_welcome_email(user):
-    """Email notification sent right after signup."""
-    subject = "Welcome to VeeFinds 💜"
+def send_welcome_email(user, otp_code=None):
+    """Email notification sent right after signup, including the activation code."""
+    subject = "Welcome to VeeFinds 💜 — Your activation code"
+    otp_line = f"\n\nYour activation code is: {otp_code}\n" if otp_code else ""
     message = (
         f"Hi {user.first_name or user.username},\n\n"
-        "Thanks for signing up on VeeFinds — find it, love it, bag it!\n"
-        "We've sent a 6-digit activation code to your phone number. "
-        "Enter it on the verification page to activate your account.\n\n"
+        "Thanks for signing up on VeeFinds — find it, love it, bag it!"
+        f"{otp_line}"
+        f"\nEnter this code on the verification page to activate your account. "
+        f"It expires in {settings.OTP_EXPIRY_MINUTES} minutes.\n\n"
         "— The VeeFinds Team"
     )
     send_mail(

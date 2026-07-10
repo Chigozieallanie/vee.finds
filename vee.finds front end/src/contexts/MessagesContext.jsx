@@ -1,62 +1,76 @@
-import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, useContext, useCallback } from 'react'
 import { useNotifications } from './NotificationContext'
 
 const MessagesContext = createContext(null)
 
-const getSavedMessages = () => {
-  try {
-    return JSON.parse(window.localStorage.getItem('vee-messages') ?? '[]')
-  } catch {
-    return []
+const authHeaders = () => {
+  const token = window.localStorage.getItem('vee-access')
+  return {
+    'Content-Type': 'application/json',
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
   }
 }
 
 export function MessagesProvider({ children }) {
-  const [messages, setMessages] = useState(getSavedMessages)
   const { pushNotification } = useNotifications()
 
-  useEffect(() => {
-    window.localStorage.setItem('vee-messages', JSON.stringify(messages))
-  }, [messages])
-
-  const sendMessage = (payload) => {
-    const nextMessage = {
-      id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-      sender: payload.sender || 'Customer',
-      ...payload,
-      createdAt: new Date().toISOString(),
+  const fetchMessages = useCallback(async () => {
+    const response = await fetch('/api/communications/', {
+      headers: authHeaders(),
+    })
+    if (!response.ok) {
+      throw new Error('Could not load messages.')
     }
-    setMessages((current) => [nextMessage, ...current])
+    return response.json()
+  }, [])
 
-    const isAdminReply = nextMessage.sender === 'Admin'
+  const sendMessage = useCallback(async ({ subject, body, isReplyTo, customer_username }) => {
+  const response = await fetch('/api/communications/', {
+    method: 'POST',
+    headers: authHeaders(),
+    body: JSON.stringify({ subject, body, customer_username }),
+  })
 
-    if (isAdminReply) {
-      pushNotification({
-        type: 'reply',
-        text: `VeeFinds replied: "${(payload.body || '').slice(0, 60)}"`,
-        forEmail: payload.email,
-      })
-    } else {
-      pushNotification({
-        type: 'message',
-        text: `${payload.email || 'A customer'} sent a new message: "${(payload.body || '').slice(0, 60)}"`,
-        forEmail: 'ADMIN',
-      })
-    }
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}))
+    const firstError = Object.values(data)[0]
+    const message = Array.isArray(firstError) ? firstError[0] : (data.detail || 'Could not send message.')
+    throw new Error(message)
   }
 
-  const getMessagesForUser = (email) =>
-    messages.filter((message) => message.email?.toLowerCase() === email?.toLowerCase())
+  const created = await response.json()
 
-  const getThreads = () => {
-    const threads = messages.reduce((acc, message) => {
-      const email = message.email?.toLowerCase() || 'unknown'
-      if (!acc[email]) {
-        acc[email] = { email, count: 0, lastMessageAt: message.createdAt }
+  if (created.is_from_staff) {
+    pushNotification({
+      type: 'reply',
+      text: `VeeFinds replied: "${(body || '').slice(0, 60)}"`,
+      forEmail: isReplyTo || created.username,
+    })
+  } else {
+    pushNotification({
+      type: 'message',
+      text: `${created.username || 'A customer'} sent a new message: "${(body || '').slice(0, 60)}"`,
+      forEmail: 'ADMIN',
+    })
+  }
+
+  return created
+}, [pushNotification])
+  const getMessagesForUser = useCallback(async (username) => {
+    const all = await fetchMessages()
+    return all.filter((m) => m.username?.toLowerCase() === username?.toLowerCase())
+  }, [fetchMessages])
+
+  const getThreads = useCallback(async () => {
+    const all = await fetchMessages()
+    const threads = all.reduce((acc, message) => {
+      const username = message.username?.toLowerCase() || 'unknown'
+      if (!acc[username]) {
+        acc[username] = { email: username, count: 0, lastMessageAt: message.created_at }
       }
-      acc[email].count += 1
-      if (message.createdAt > acc[email].lastMessageAt) {
-        acc[email].lastMessageAt = message.createdAt
+      acc[username].count += 1
+      if (message.created_at > acc[username].lastMessageAt) {
+        acc[username].lastMessageAt = message.created_at
       }
       return acc
     }, {})
@@ -64,12 +78,13 @@ export function MessagesProvider({ children }) {
     return Object.values(threads).sort(
       (a, b) => new Date(b.lastMessageAt) - new Date(a.lastMessageAt),
     )
-  }
+  }, [fetchMessages])
 
-  const value = useMemo(
-    () => ({ messages, sendMessage, getMessagesForUser, getThreads }),
-    [messages],
-  )
+  const value = {
+    sendMessage,
+    getMessagesForUser,
+    getThreads,
+  }
 
   return <MessagesContext.Provider value={value}>{children}</MessagesContext.Provider>
 }
